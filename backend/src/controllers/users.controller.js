@@ -1,11 +1,19 @@
+const User = require('../models/User');
+
 module.exports = {
-    getUsers(req, res) {
-        res.json({message: []})
+    async getUsers(req, res) {
+        const users = await User.find();
+        res.json(users);
     },
-    createUser(req, res) {
-        res.json({message: 'User Saved'})
+    async createUser(req, res) {
+        const {username} = req.body;
+        const newUser = new User({username});
+        await newUser.save();
+        res.json({message: 'User Saved'});
     },
-    deleteUser(req, res) {
-        res.json({message: 'User Deleted'})
+    async deleteUser(req, res) {
+        const {id} = req.params;
+        await User.findOneAndDelete({_id: id});
+        res.json({message: 'User Deleted'});
     }
 };

@@ -7,6 +7,6 @@ router.route('/')
     .post(users.createUser);
 
 router.route('/:id')
-    .delete(users.deleteUser());
+    .delete(users.deleteUser);
 
 module.exports = router;
